@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplication1.Models.Component>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    @Html.TextBox("zoeken");
+    <input type="submit" value="Zoek" class="btn btn-default" />
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("naam", "Index", new { sorteer = ViewBag.NaamSorteer})
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datasheet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aantal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aankoopprijs)
+        </th>
+        <th>
+            Categorie
+        </th>
+        <th></th>
+    </tr>
+@if (Model.Count() == 0)
+{
+    <tr>
+        <td rowspan="5">geen rijen gevonden</td>
+    </tr>
+}
+else
+{
+foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datasheet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Aantal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Aankoopprijs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categorie.Naam)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+}
+
+</table>
